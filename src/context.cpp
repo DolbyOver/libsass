@@ -100,10 +100,10 @@ namespace Sass {
     collect_plugin_paths(c_options.plugin_paths);
 
     // load plugins and register custom behaviors
-    for(auto plug : plugin_paths) { plugins.load_plugins(plug); }
-    for(auto fn : plugins.get_headers()) { c_headers.push_back(fn); }
-    for(auto fn : plugins.get_importers()) { c_importers.push_back(fn); }
-    for(auto fn : plugins.get_functions()) { c_functions.push_back(fn); }
+    for (auto __plug = (plugin_paths).begin(); __plug != (plugin_paths).end(); ++__plug) { auto plug = *(__plug); plugins.load_plugins(plug); }
+    for (auto __fn = (plugins.get_headers()).begin(); __fn != (plugins.get_headers()).end(); ++__fn) { auto fn = *(__fn); c_headers.push_back(fn); }
+    for (auto __fn = (plugins.get_importers()).begin(); __fn != (plugins.get_importers()).end(); ++__fn) { auto fn = *(__fn); c_importers.push_back(fn); }
+    for (auto __fn = (plugins.get_functions()).begin(); __fn != (plugins.get_functions()).end(); ++__fn) { auto fn = *(__fn); c_functions.push_back(fn); }
 
     // sort the items by priority (lowest first)
     sort (c_headers.begin(), c_headers.end(), sort_importers);
@@ -418,7 +418,7 @@ namespace Sass {
     // need one correct import
     bool has_import = false;
     // process all custom importers (or custom headers)
-    for (Sass_Importer_Entry& importer_ent : importers) {
+    for (auto __importer_ent = (importers).begin(); __importer_ent != (importers).end(); ++__importer_ent) { Sass_Importer_Entry& importer_ent = *(__importer_ent);
       // int priority = sass_importer_get_priority(importer);
       Sass_Importer_Fn fn = sass_importer_get_function(importer_ent);
       // skip importer if it returns NULL
